@@ -19,7 +19,7 @@ and call <code>attrAjax()</code> in a javascript. That's it!
 $("#attrAjax").attrAjax();
 ````
 
-Here is lots of Ajax codes..
+Here is lots of HTML tags with <code>data-aa-url</code> attribute for Ajax requests..
 ````html
 <form class="attrAjax" data-aa-url="http://ajaxurl.com">
   <input type="submit" value="ajax request!" />
@@ -29,8 +29,9 @@ Here is lots of Ajax codes..
 <input class="attrAjax" type="button" value="Ajax!" data-aa-url="http://ajaxurl.com" />
 ````
 
-and call <code>attrAjax()</code> in a javascript. That's it!
+but just call <code>attrAjax()</code>
 ````javascript
 $(".attrAjax").attrAjax();
 ````
+
 ---
