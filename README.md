@@ -1,4 +1,4 @@
-#jQuery Attrbute Ajax Plugin - Easy Ajax
+#jQuery Attrbute Ajax Plugin
 
 ##Overview
 The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and various additional functions needed in Ajax. The main idea comes from using HTML attributes. If your website needs many ajax requests, just call the main method "attrAjax()" with few Ajax attributes.
@@ -7,7 +7,7 @@ The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and
 
 ##Example
 
-Just add <code>data-aa-url</code> attribute in a html code.
+Just add <code>data-aa-url</code> attribute in a tag to do ajax request.
 ````html
 <form id="attrAjax" data-aa-url="http://ajaxurl.com">
   <input type="submit" value="ajax request!" />
