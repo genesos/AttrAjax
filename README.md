@@ -1,4 +1,4 @@
-#jQuery Attrbute Ajax Plugin
+#jQuery Attribute Ajax Plugin
 
 Easy ajax using HTML attributes and additional functions in ajax, for jQuery and jQuery template.
 
