@@ -30,7 +30,6 @@
 			"data-aa-msg-empty": null,
 
 			"data-aa-alert-error": "false", //true or false string
-			"data-aa-alert-fail": "false",
 			"data-aa-alert-success": "false",
 
 			"data-aa-alerttype": "alert", //alert, value or text string
@@ -223,7 +222,7 @@
 									if (options["data-aa-successtext"] == data) {
 										$.attrAjax.printMsg(options, options["data-aa-msg-success"]);
 									} else {
-										if (options["data-aa-alert-fail"] == "true") {
+										if (options["data-aa-msg-fail"]) {
 											$.attrAjax.printMsg(options, options["data-aa-msg-fail"]);
 										}
 									}
@@ -241,7 +240,7 @@
 									}
 								}
 							} else {
-								if (options["data-aa-msg-empty"]) {
+								if (options["data-aa-msg-empty"] && options["data-aa-resulttarget"]) {
 									$(options["data-aa-resulttarget"]).append(options["data-aa-msg-empty"]);
 								}
 							}
