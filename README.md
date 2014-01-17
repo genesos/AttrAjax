@@ -43,13 +43,34 @@ but just call <code>attrAjax()</code>.
 $(".attrAjax").attrAjax();
 ````
 
+If you don't like to use many attributes,
+just add 'options' argument when calling <code>attrAjax(options)</code>.
+````html
+<form id="attrAjax">
+  <input type="submit" value="ajax request!" />
+</form>
+````
+````javascript
+$("#attrAjax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
+````
+
 ##Methods
 ###attrAjax()
 Binds events for ajax request.
 
 ####Code example:
+````html
+<input class="ajax" data-aa-url="http://ajaxurl.com" type="button" value="ajax request!" />
 ````
-$(".selector").attrAjax();
+````javascript
+$(".ajax").attrAjax();
+````
+or
+````html
+<input class="ajax" type="button" value="ajax request!" />
+````
+````javascript
+$(".ajax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 ````
 
 ##Options (attribute keys)
