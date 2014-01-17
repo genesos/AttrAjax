@@ -16,6 +16,7 @@ The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and
 
 ##Example
 
+#### The shortest code for Ajax request using HTML attribute.
 Just add <code>data-aa-url</code> attribute on a tag to do ajax request.
 ````html
 <form id="attrAjax" data-aa-url="http://ajaxurl.com">
@@ -28,6 +29,7 @@ and call <code>attrAjax()</code> on javascript code. That's it!
 $("#attrAjax").attrAjax();
 ````
 
+#### The way to bind Ajax request with many tags.
 Here is too many HTML tags with <code>data-aa-url</code> attribute for Ajax requests..
 (The attrAjax function supports all tags.)
 ````html
@@ -46,6 +48,7 @@ but don't worry, just call <code>attrAjax()</code>! then all tags could be ajax 
 $(".attrAjax").attrAjax();
 ````
 
+#### Without attributes
 If you don't like to use many attributes,
 just add 'options' argument when calling <code>attrAjax(options)</code>.
 ````html
