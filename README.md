@@ -117,8 +117,16 @@ Specifies same id on the tags that you want to bind synchronously.
 - Optional
 - Type: String
 - Default: null
-- 
+
 ####Code example:
+````html
+//sync group 1
+<input data-aa-sync="sync_test" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_test" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+//sync group 2
+<input data-aa-sync="sync_test2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_test2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
+````
 
 ###data-aa-param
 ###data-aa-subform
