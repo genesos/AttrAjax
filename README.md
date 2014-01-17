@@ -34,7 +34,7 @@ $("#attrAjax").attrAjax();
 ````
 From now on the onsubmit event of the above form tag is bound with a ajax request.
 
-#### The way to bind Ajax request with many tags.
+#### The way to bind many tags with ajax requests.
 Here is too many HTML tags for Ajax requests..
 (The attrAjax function supports all tags.)
 ````html
