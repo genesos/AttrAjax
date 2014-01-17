@@ -1,6 +1,6 @@
 #jQuery Attribute Ajax Plugin
 
-Easy ajax using HTML attributes and additional functions in ajax, for jQuery and jQuery template.
+The easiest way to request Ajax using HTML attributes and additional functions in ajax, for jQuery and jQuery template.
 
 - Various ajax attributes.
 - Synchronous ajax requests.
@@ -176,8 +176,28 @@ Specifies whether prevent further propagation of an event of the tag using attrA
 - Type: Boolean
 - Default: false
 
-###data-aa-datainit
+#####Code example:
+The event calling <code>originEvent()</code> function will be ignored by <code>data-aa-stoppropagation</code>
+````javascript
+function originEvent() {
+	alert("called originEvnet()");
+}
 
+$(function () {
+	$(".ajax").on("click", originEvent);
+	$(".ajax").attrAjax();
+});
+````
+````html
+<input data-aa-stoppropagation="true" data-aa-url="ajaxtest.php" 
+	class="ajax" type="button"value="test stop propagation">
+````
+
+###data-aa-datainit
+Specifies whether prevent further propagation of an event of the tag using attrAjax().
+- Optional
+- Type: Boolean
+- Default: false
 
 ###data-aa-datatype
 ###data-aa-successtext
