@@ -14,6 +14,10 @@ The easiest way to send Ajax request using HTML attributes and additional functi
 ##Overview
 The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and provides various additional functions needed in Ajax. The main idea comes from using HTML attributes. If your website needs many ajax requests, just call the main method "attrAjax()" with few Ajax attributes.
 
+##Requirements
+- jQuery
+- jQuery template (optional)
+
 ##Example
 
 #### The shortest code for Ajax request.
@@ -30,7 +34,7 @@ $("#attrAjax").attrAjax();
 ````
 From now on the onsubmit event of the above form tag is bound with a ajax request.
 
-#### The way to bind Ajax request with many tags.
+#### The way to bind many tags with ajax requests.
 Here is too many HTML tags for Ajax requests..
 (The attrAjax function supports all tags.)
 ````html
@@ -156,6 +160,7 @@ Specifies params as query param string of GET method's url.
 ###data-aa-subform
 Specifies css selector of the fake form that you want to use like form tag.
 All input data with name attribute in the selected fake form will be sended to the server and be validated automatically.
+You can use the fake forms in the real form tag.
 - Optional
 - Type: String (css selector of only block element, ex: "#subformid")
 - Default: null
@@ -223,8 +228,38 @@ Specifies whether to remove(initialize) the data that was displayed after Ajax r
 ````
 
 ###data-aa-datatype
+Specifies data type of response data after Ajax request.
+- Optional
+- Type: String ("text", "json", "xml", "script", "html", "jsonp")
+- Default: "text"
+
 ###data-aa-successtext
+The meaning of this text is the success of ajax request.
+When you set "success" text on this option, if response data is "success" text, the success message could be displayed.
+This option has to be used with <code>data-aa-msg-success</code> option.
+- Optional
+- Type: String
+- Default: null
+
+#####Code example:
+````html
+//If the response data is "success" text, "you did it!!" text will be displayed.
+<input data-aa-successtext="success" data-aa-msg-success="You did it!!" data-aa-url="ajaxtest.php" 
+	type="button" value="Test success text!" />
+````
+
 ###data-aa-resulttarget
+Specifies the css selector of target element that the response data will be displayed in.
+- Optional
+- Type: String (css selector)
+- Default: "text"
+
+#####Code example:
+````html
+<div id="resultBox">This text will be replaced with response text.</div>
+<input data-aa-resulttarget="#resultBox" type="button" value="Display response data in result box!" />
+````
+
 ###data-aa-tmpltarget
 ###data-aa-msg-confirm
 ###data-aa-msg-complete
@@ -233,7 +268,6 @@ Specifies whether to remove(initialize) the data that was displayed after Ajax r
 ###data-aa-msg-fail
 ###data-aa-msg-empty
 ###data-aa-alert-error
-###data-aa-alert-fail
 ###data-aa-alert-success
 ###data-aa-alerttype
 ###data-aa-alerttarget
