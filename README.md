@@ -7,12 +7,12 @@ Easy ajax using HTML attributes and additional functions in ajax, for jQuery and
 - Fake form.
 - Support jQuery Template.
 - Disable tags in ajax.
-- Support every events.
+- Support all events.
 - Every tags can do ajax request.
-- Easy validation for inputs.
+- Easy validation for input values.
 
 ##Overview
-The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and various additional functions needed in Ajax. The main idea comes from using HTML attributes. If your website needs many ajax requests, just call the main method "attrAjax()" with few Ajax attributes.
+The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and provides various additional functions needed in Ajax. The main idea comes from using HTML attributes. If your website needs many ajax requests, just call the main method "attrAjax()" with few Ajax attributes.
 
 ##Example
 
