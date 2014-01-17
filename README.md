@@ -112,9 +112,18 @@ Specifies the timeout(milli seconds) of ajax request.
 
 ###data-aa-disableinajax
 Specifies whether the tag should be disabled in ajax request.
+If you don't want to send duplicated ajax requests in a ajax request, write 'true' on the value of this option.
 - Optional
 - Type: Boolean
 - Default: true
+
+#####Code example:
+````html
+//This tag will be disabled in ajax request.
+<span data-aa-url="disabletest.com">Disable in ajax</span>
+//This tag could be duplicately called in ajax request.
+<span data-aa-disableinajax="false" data-aa-url="disabletest.com">Enable in ajax</span>
+````
 
 ###data-aa-sync
 Specifies same id on the tags that you want to bind synchronously.
