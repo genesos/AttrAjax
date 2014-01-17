@@ -156,6 +156,7 @@ Specifies params as query param string of GET method's url.
 ###data-aa-subform
 Specifies css selector of the fake form that you want to use like form tag.
 All input data with name attribute in the selected fake form will be sended to the server and be validated automatically.
+You can use the fake forms in the real form tag.
 - Optional
 - Type: String (css selector of only block element, ex: "#subformid")
 - Default: null
@@ -223,7 +224,26 @@ Specifies whether to remove(initialize) the data that was displayed after Ajax r
 ````
 
 ###data-aa-datatype
+Specifies data type of response data after Ajax request.
+- Optional
+- Type: String ("text", "json", "xml", "script", "html", "jsonp")
+- Default: "text"
+
 ###data-aa-successtext
+The meaning of this text is the success of ajax request.
+When you set "success" text on this option, if response data is "success" text, the success message could be displayed.
+This option has to be used with <code>data-aa-msg-success</code> option.
+- Optional
+- Type: String ("text", "json", "xml", "script", "html", "jsonp")
+- Default: "text"
+
+#####Code example:
+````html
+//If the response data is "success" text, "you did it!!" text of <code>data-aa-msg-success</code> will be displayed.
+<input data-aa-successtext="success" data-aa-msg-success="You did it!!" data-aa-url="ajaxtest.php" 
+	type="button" value="Test success text!" />
+````
+
 ###data-aa-resulttarget
 ###data-aa-tmpltarget
 ###data-aa-msg-confirm
@@ -233,7 +253,6 @@ Specifies whether to remove(initialize) the data that was displayed after Ajax r
 ###data-aa-msg-fail
 ###data-aa-msg-empty
 ###data-aa-alert-error
-###data-aa-alert-fail
 ###data-aa-alert-success
 ###data-aa-alerttype
 ###data-aa-alerttarget
