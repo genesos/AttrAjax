@@ -61,38 +61,65 @@ $("#attrAjax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 Binds events for ajax request.
 
 ####Code example:
-#####HTML
+#####by attribute
+HTML
 ````html
 <input class="ajax" data-aa-url="http://ajaxurl.com" type="button" value="ajax request!" />
 ````
-#####Javascript
+Javascript
 ````javascript
 $(".ajax").attrAjax();
 ````
-or
-#####HTML
+
+#####by javascript
+HTML
 ````html
 <input class="ajax" type="button" value="ajax request!" />
 ````
-#####Javascript
+Javascript
 ````javascript
 $(".ajax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 ````
 
 ##Options (attribute keys)
 ###data-aa-url
-Specifies url to send the ajax request.
-- Not optional
+Specifies url to send ajax request.
+- Mandatory
 - Type: String
 - Default: null
 
 ###data-aa-event
-Specifies where
+Specifies event to fire ajax request.
+- Optional
+- Type: String
+- Default: "click"
 
 ###data-aa-method
+Specifies the HTTP method to use.
+- Optional
+- Type: String
+- Default: "get"
+
 ###data-aa-timeout
+Specifies the timeout(milli seconds) of ajax request.
+- Optional
+- Type: Integer
+- Default: 5000
+
 ###data-aa-disableinajax
+Specifies whether the tag binded with ajax evnet should be disabled in ajax request.
+- Optional
+- Type: Boolean
+- Default: true
+
 ###data-aa-sync
+Specifies same id on the tags that you want to bind synchronously.
+- Optional
+- Type: String
+- Default: null
+- 
+####Code example:
+
 ###data-aa-param
 ###data-aa-subform
 ###data-aa-stoppropagation
