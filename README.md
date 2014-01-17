@@ -234,8 +234,8 @@ The meaning of this text is the success of ajax request.
 When you set "success" text on this option, if response data is "success" text, the success message could be displayed.
 This option has to be used with <code>data-aa-msg-success</code> option.
 - Optional
-- Type: String ("text", "json", "xml", "script", "html", "jsonp")
-- Default: "text"
+- Type: String
+- Default: null
 
 #####Code example:
 ````html
@@ -245,6 +245,17 @@ This option has to be used with <code>data-aa-msg-success</code> option.
 ````
 
 ###data-aa-resulttarget
+Specifies the css selector of target element that the response data will be displayed in.
+- Optional
+- Type: String (css selector)
+- Default: "text"
+
+#####Code example:
+````html
+<div id="resultBox">This text will be replaced with response text.</div>
+<input data-aa-resulttarget="#resultBox" type="button" value="Display response data in result box!" />
+````
+
 ###data-aa-tmpltarget
 ###data-aa-msg-confirm
 ###data-aa-msg-complete
