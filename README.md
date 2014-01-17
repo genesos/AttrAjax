@@ -14,6 +14,10 @@ The easiest way to send Ajax request using HTML attributes and additional functi
 ##Overview
 The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and provides various additional functions needed in Ajax. The main idea comes from using HTML attributes. If your website needs many ajax requests, just call the main method "attrAjax()" with few Ajax attributes.
 
+##Requirements
+- jQuery
+- jQuery template (optional)
+
 ##Example
 
 #### The shortest code for Ajax request.
