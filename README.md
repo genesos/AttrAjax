@@ -16,48 +16,37 @@ The jQuery Attribute Ajax Plugin saves your time to write lots of Ajax codes and
 
 ##Example
 
-#### The shortest code for Ajax request using HTML attribute.
-Just add <code>data-aa-url</code> attribute on a tag to do ajax request.
-````html
-<form id="attrAjax" data-aa-url="http://ajaxurl.com">
-  <input type="submit" value="ajax request!" />
-</form>
-````
-
-and call <code>attrAjax()</code> on javascript code. That's it!
-````javascript
-$("#attrAjax").attrAjax();
-````
-
-#### The way to bind Ajax request with many tags.
-Here is too many HTML tags with <code>data-aa-url</code> attribute for Ajax requests..
-(The attrAjax function supports all tags.)
-````html
-<form class="attrAjax" data-aa-url="http://ajaxurl.com">
-  <input type="submit" value="ajax request!" />
-</form>
-<div class="attrAjax" data-aa-url="http://ajaxurl.com">Ajax!</div>
-<span class="attrAjax" data-aa-url="http://ajaxurl.com">Ajax!</span>
-<input class="attrAjax" type="button" value="Ajax!" data-aa-url="http://ajaxurl.com" />
-...
-...
-
-````
-but don't worry, just call <code>attrAjax()</code>! then all tags could be ajax requestors!
-````javascript
-$(".attrAjax").attrAjax();
-````
-
-#### Without attributes
-If you don't like to use many attributes,
-just add 'options' argument when calling <code>attrAjax(options)</code>.
+#### The shortest code for Ajax request.
+You don't need to add any option attributes.
 ````html
 <form id="attrAjax">
   <input type="submit" value="ajax request!" />
 </form>
 ````
+
+Just call <code>attrAjax()</code> on the tag for Ajax request! That's it!!
 ````javascript
-$("#attrAjax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
+$("#attrAjax").attrAjax();
+````
+
+#### The way to bind Ajax request with many tags.
+Here is too many HTML tags for Ajax requests..
+(The attrAjax function supports all tags.)
+````html
+<form class="attrAjax">
+  <input type="submit" value="ajax request!" />
+</form>
+<div class="attrAjax">Ajax!</div>
+<span class="attrAjax">Ajax!</span>
+<input class="attrAjax" type="button" value="Ajax!" />
+...
+...
+<input class="attrAjax" type="button" value="Ajax2!" />
+
+````
+but don't worry, just call <code>attrAjax()</code>! then all tags could be ajax requestors!
+````javascript
+$(".attrAjax").attrAjax();
 ````
 
 ##Methods
@@ -66,21 +55,18 @@ Binds the tags with ajax requests.
 
 ####Code example:
 #####by attribute
-HTML
+
 ````html
 <input class="ajax" data-aa-url="http://ajaxurl.com" type="button" value="ajax request!" />
 ````
-Javascript
 ````javascript
 $(".ajax").attrAjax();
 ````
 
 #####by javascript
-HTML
 ````html
 <input class="ajax" type="button" value="ajax request!" />
 ````
-Javascript
 ````javascript
 $(".ajax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 ````
@@ -88,15 +74,25 @@ $(".ajax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 ##Options (attribute keys)
 ###data-aa-url
 Specifies url to send ajax request.
-- Mandatory
+If you don't add this option, it will send a ajax request to current site.
+- Optional
 - Type: String
-- Default: null
+- Default: window.location.pathname (Current site uri, ex: "/test" of http://www.google.com/test)
 
 ###data-aa-event
 Specifies event to fire ajax request.
 - Optional
 - Type: String
 - Default: "click"
+
+#####Code example:
+````html
+//The ajax request of this text tag will be fired by keyup event.
+<input data-aa-event="keyup" data-aa-url="ajaxtest.php" type="text" value="Keyup Event!" />
+
+//The ajax request of this button tag will be fired by click event by default.
+<input data-aa-url="ajaxtest.php" type="button" value="Click Event!" />
+````
 
 ###data-aa-method
 Specifies the HTTP method to use.
@@ -169,6 +165,7 @@ All input data with name attribute in the selected fake form will be sended to t
 	<input type="hidden" name="realform_input1" />
 	<input type="text" name="realform_input2" />
 	
+	//The input data in this div tag will be sended to the server.
 	<div id="fakeform" >
 		<input type="hidden" name="fakeform_input1" />
 		<input type="text" name="fakeform_input2" />
