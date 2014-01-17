@@ -239,7 +239,7 @@ This option has to be used with <code>data-aa-msg-success</code> option.
 
 #####Code example:
 ````html
-//If the response data is "success" text, "you did it!!" text of <code>data-aa-msg-success</code> will be displayed.
+//If the response data is "success" text, "you did it!!" text will be displayed.
 <input data-aa-successtext="success" data-aa-msg-success="You did it!!" data-aa-url="ajaxtest.php" 
 	type="button" value="Test success text!" />
 ````
