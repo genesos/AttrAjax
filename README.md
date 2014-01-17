@@ -126,8 +126,8 @@ The tags have same <code>data-aa-sync</code> id could be synchronous.
 <input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
 <input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
 //sync group 2
-<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
-<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
 ````
 
 ###data-aa-param
@@ -161,7 +161,8 @@ All input data with name attribute in the selected fake form will be sended to t
 			<option value="1">test1</option>
 			<option value="2">test2</option>
 		</select>
-		<input data-aa-subform="#fakeform" data-aa-url="fakeform.com" class="ajax" type="button" value="test fake form!" />
+		<input data-aa-subform="#fakeform" data-aa-url="fakeform.com" class="ajax" 
+			type="button" value="test fake form!" />
 	</div>
 </form>
 ````
@@ -170,7 +171,14 @@ $(".ajax").attrAjax();
 ````
 
 ###data-aa-stoppropagation
+Specifies whether prevent further propagation of an event of the tag using attrAjax().
+- Optional
+- Type: Boolean
+- Default: false
+
 ###data-aa-datainit
+
+
 ###data-aa-datatype
 ###data-aa-successtext
 ###data-aa-resulttarget
