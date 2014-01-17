@@ -62,7 +62,7 @@ $("#attrAjax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 
 ##Methods
 ###attrAjax()
-Binds events for ajax request.
+Binds the tags with ajax requests.
 
 ####Code example:
 #####by attribute
@@ -111,7 +111,7 @@ Specifies the timeout(milli seconds) of ajax request.
 - Default: 5000
 
 ###data-aa-disableinajax
-Specifies whether the tag binded with ajax evnet should be disabled in ajax request.
+Specifies whether the tag should be disabled in ajax request.
 - Optional
 - Type: Boolean
 - Default: true
