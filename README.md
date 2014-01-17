@@ -121,6 +121,7 @@ If you don't want to send duplicated ajax requests in a ajax request, write 'tru
 ````html
 //This tag will be disabled in ajax request.
 <span data-aa-url="disabletest.com">Disable in ajax</span>
+
 //This tag could be duplicately called in ajax request.
 <span data-aa-disableinajax="false" data-aa-url="disabletest.com">Enable in ajax</span>
 ````
@@ -137,6 +138,7 @@ The tags have same <code>data-aa-sync</code> id could be synchronous.
 //sync group 1
 <input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
 <input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+
 //sync group 2
 <input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
 <input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
@@ -166,6 +168,7 @@ All input data with name attribute in the selected fake form will be sended to t
 <form action="realform.com">
 	<input type="hidden" name="realform_input1" />
 	<input type="text" name="realform_input2" />
+	
 	<div id="fakeform" >
 		<input type="hidden" name="fakeform_input1" />
 		<input type="text" name="fakeform_input2" />
@@ -210,6 +213,16 @@ Specifies whether to remove(initialize) the data that was displayed after Ajax r
 - Optional
 - Type: Boolean
 - Default: true
+
+#####Code example:
+````html
+<div id="setBox">This text will be replaced with response text.</div>
+<input data-aa-resulttarget="#setBox" data-aa-url="ajaxtest.php" type="button" value="Set new text!" />
+
+<div id="addBox">New response text will be added under this text.</div>
+<input data-aa-datainit="false" data-aa-resulttarget="#addBox" data-aa-url="ajaxtest.php" 
+	type="button" value="Add new text!" />
+````
 
 ###data-aa-datatype
 ###data-aa-successtext
