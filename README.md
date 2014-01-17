@@ -28,6 +28,7 @@ Just call <code>attrAjax()</code> on the tag for Ajax request! That's it!!
 ````javascript
 $("#attrAjax").attrAjax();
 ````
+From now on the onsubmit event of the above form tag is bound with a ajax request.
 
 #### The way to bind Ajax request with many tags.
 Here is too many HTML tags for Ajax requests..
