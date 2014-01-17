@@ -29,6 +29,7 @@ $("#attrAjax").attrAjax();
 ````
 
 Here is too many HTML tags with <code>data-aa-url</code> attribute for Ajax requests..
+(The attrAjax function supports all tags.)
 ````html
 <form class="attrAjax" data-aa-url="http://ajaxurl.com">
   <input type="submit" value="ajax request!" />
@@ -119,7 +120,7 @@ The tags have same <code>data-aa-sync</code> id could be synchronous.
 - Type: String
 - Default: null
 
-####Code example:
+#####Code example:
 ````html
 //sync group 1
 <input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
@@ -135,24 +136,37 @@ Specifies params as query param string of GET method's url.
 - Type: String
 - Default: null
 
-####Code example:
+#####Code example:
 ````html
-<input data-aa-param="param1=test&param2=test2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+<input data-aa-param="param1=test&param2=test2" data-aa-url="ajaxtest.php" class="ajax" 
+  type="button" value="ajax request!" />
 ````
 
 ###data-aa-subform
 Specifies css selector of the fake form that you want to use like form tag.
 All input data with name attribute in the selected fake form will be sended to the server and be validated automatically.
 - Optional
-- Type: String (css selector, ex: "#subformid")
+- Type: String (css selector of only block element, ex: "#subformid")
 - Default: null
 
-####Code example:
+#####Code example:
 ````html
-<form>
-<div data-aa-param="param1=test&param2=test2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!">
-</div>
+<form action="realform.com">
+  <input type="hidden" name="realform_input1" />
+	<input type="text" name="realform_input2" />
+	<div id="fakeform" >
+		<input type="hidden" name="fakeform_input1" />
+		<input type="text" name="fakeform_input2" />
+		<select name="fakeform_input3">
+			<option value="1">test1</option>
+			<option value="2">test2</option>
+		</select>
+		<input data-aa-subform="#fakeform" data-aa-url="fakeform.com" class="ajax" type="button" value="test fake form!" />
+	</div>
 </form>
+````
+````javascript
+$(".ajax").attrAjax();
 ````
 
 ###data-aa-stoppropagation
