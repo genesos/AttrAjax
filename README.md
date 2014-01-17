@@ -114,6 +114,7 @@ Specifies whether the tag binded with ajax evnet should be disabled in ajax requ
 
 ###data-aa-sync
 Specifies same id on the tags that you want to bind synchronously.
+The tags have same <code>data-aa-sync</code> id could be synchronous.
 - Optional
 - Type: String
 - Default: null
@@ -121,15 +122,39 @@ Specifies same id on the tags that you want to bind synchronously.
 ####Code example:
 ````html
 //sync group 1
-<input data-aa-sync="sync_test" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
-<input data-aa-sync="sync_test" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
 //sync group 2
-<input data-aa-sync="sync_test2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
-<input data-aa-sync="sync_test2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php"  class="ajax" type="button" value="ajax request!" />
 ````
 
 ###data-aa-param
+Specifies params as query param string of GET method's url.
+- Optional
+- Type: String
+- Default: null
+
+####Code example:
+````html
+<input data-aa-param="param1=test&param2=test2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+````
+
 ###data-aa-subform
+Specifies css selector of the fake form that you want to use like form tag.
+All input data with name attribute in the selected fake form will be sended to the server and be validated automatically.
+- Optional
+- Type: String (css selector, ex: "#subformid")
+- Default: null
+
+####Code example:
+````html
+<form>
+<div data-aa-param="param1=test&param2=test2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!">
+</div>
+</form>
+````
+
 ###data-aa-stoppropagation
 ###data-aa-datainit
 ###data-aa-datatype
