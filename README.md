@@ -28,7 +28,7 @@ and call <code>attrAjax()</code> on javascript code. That's it!
 $("#attrAjax").attrAjax();
 ````
 
-Here is lots of HTML tags with <code>data-aa-url</code> attribute for Ajax requests..
+Here is too many HTML tags with <code>data-aa-url</code> attribute for Ajax requests..
 ````html
 <form class="attrAjax" data-aa-url="http://ajaxurl.com">
   <input type="submit" value="ajax request!" />
@@ -36,9 +36,11 @@ Here is lots of HTML tags with <code>data-aa-url</code> attribute for Ajax reque
 <div class="attrAjax" data-aa-url="http://ajaxurl.com">Ajax!</div>
 <span class="attrAjax" data-aa-url="http://ajaxurl.com">Ajax!</span>
 <input class="attrAjax" type="button" value="Ajax!" data-aa-url="http://ajaxurl.com" />
-````
+...
+...
 
-but just call <code>attrAjax()</code>.
+````
+but don't worry, just call <code>attrAjax()</code>! then all tags could be ajax requestors!
 ````javascript
 $(".attrAjax").attrAjax();
 ````
@@ -59,16 +61,20 @@ $("#attrAjax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 Binds events for ajax request.
 
 ####Code example:
+#####HTML
 ````html
 <input class="ajax" data-aa-url="http://ajaxurl.com" type="button" value="ajax request!" />
 ````
+#####Javascript
 ````javascript
 $(".ajax").attrAjax();
 ````
 or
+#####HTML
 ````html
 <input class="ajax" type="button" value="ajax request!" />
 ````
+#####Javascript
 ````javascript
 $(".ajax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
 ````
