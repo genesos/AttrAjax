@@ -152,7 +152,7 @@ All input data with name attribute in the selected fake form will be sended to t
 #####Code example:
 ````html
 <form action="realform.com">
-  <input type="hidden" name="realform_input1" />
+	<input type="hidden" name="realform_input1" />
 	<input type="text" name="realform_input2" />
 	<div id="fakeform" >
 		<input type="hidden" name="fakeform_input1" />
