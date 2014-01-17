@@ -174,13 +174,13 @@ $(".ajax").attrAjax();
 ````
 
 ###data-aa-stoppropagation
-Specifies whether prevent further propagation of an event of the tag using attrAjax().
+Specifies whether to prevent further propagation of an event of the tag using attrAjax().
 - Optional
 - Type: Boolean
 - Default: false
 
 #####Code example:
-The event calling <code>originEvent()</code> function will be ignored by <code>data-aa-stoppropagation</code>
+The <code>originEvent()</code> function will be ignored by <code>data-aa-stoppropagation</code>
 ````javascript
 function originEvent() {
 	alert("called originEvnet()");
@@ -197,10 +197,10 @@ $(function () {
 ````
 
 ###data-aa-datainit
-Specifies whether prevent further propagation of an event of the tag using attrAjax().
+Specifies whether to remove(initialize) the data that was displayed after Ajax request.
 - Optional
 - Type: Boolean
-- Default: false
+- Default: true
 
 ###data-aa-datatype
 ###data-aa-successtext
