@@ -3,7 +3,7 @@
 Easy ajax using HTML attributes and additional functions in ajax, for jQuery and jQuery template.
 
 - Various ajax attributes.
-- Synchronous between ajax requests.
+- Synchronous ajax requests.
 - Fake form.
 - Support jQuery Template.
 - Disable tags in ajax.
