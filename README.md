@@ -52,9 +52,16 @@ Binds events for ajax request.
 $(".selector").attrAjax();
 ````
 
-##Options
+##Options (attribute keys)
 ###data-aa-url
+Specifies url to send the ajax request.
+- Not optional
+- Type: String
+- Default: null
+
 ###data-aa-event
+Specifies where
+
 ###data-aa-method
 ###data-aa-timeout
 ###data-aa-disableinajax
