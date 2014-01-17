@@ -1,6 +1,6 @@
 #jQuery Attribute Ajax Plugin
 
-The easiest way to request Ajax using HTML attributes and additional functions in ajax, for jQuery and jQuery template.
+The easiest way to send Ajax request using HTML attributes and additional functions in ajax, for jQuery and jQuery template.
 
 - Various ajax attributes.
 - Synchronous ajax requests.
