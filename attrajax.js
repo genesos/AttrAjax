@@ -3,7 +3,7 @@
 
 	$.extend($.attrAjax, {
 		OPTION: {
-			"data-aa-url": null, // url string
+			"data-aa-url": window.location.pathname, // url string
 			"data-aa-event": "click", // event type string
 			"data-aa-method": "get", // method string
 			"data-aa-timeout": 5000, // integer (milli seconds)
@@ -181,7 +181,7 @@
 						}
 					}
 
-					if (options["data-aa-offinajax"] == "true") {
+					if (options["data-aa-disableinajax"] == "true") {
 						$this.attr("data-aa-in-disable", "true");
 						if (isForm) {
 							$this.find("input[type=button], input[type=submit]").attr("disabled", "disabled").css("opacity", "0.5");
@@ -261,7 +261,7 @@
 							if (options["data-aa-focus-success"]) {
 								$(options["data-aa-focus-success"]).focus();
 							}
-							if (options["data-aa-offinajax"] == "true") {
+							if (options["data-aa-disableinajax"] == "true") {
 								$this.removeAttr("data-aa-in-disable");
 								if (isForm) {
 									$this.find("input[type=button], input[type=submit]").removeAttr("disabled").css("opacity", "1.0");
