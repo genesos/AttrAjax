@@ -379,14 +379,74 @@ Specifies the selector that messages will be displayed on.
 ````
 
 ###data-aa-focus-error
-###data-aa-focus-success
+Specifies the selector that will focus when a error occur.
+- Optional
+- Type: String (css selector)
+- Default: null
+
+###data-aa-focus-complete
+Specifies the selector that will focus on the complete event after Ajax Request.
+- Optional
+- Type: String (css selector)
+- Default: null
 
 ##Events
-###data-aa-onerror
-###data-aa-onsuccess
-###data-aa-oncomplete
-###data-aa-onbefore
+
+###Event flow
+1. data-aa-oncustomparam
+2. data-aa-onbefore
+3. Ajax Request
+4. data-aa-onerror, data-aa-onsuccess
+5. data-aa-oncomplete
+
 ###data-aa-oncustomparam
+Specifies the function name to make the custom parameters.
+You have to return the query param.
+- Optional
+- Type: String (function name)
+- Default: null
+
+#####Code example:
+````javascript
+function onCustomParam($this) {
+	var customParam = parseInt($this.attr("data-val")) + 1;
+	var param = "custom_param=" + customParam;
+	
+	// The "custom_param" param will be sended to the server.
+	return param;
+}
+````
+````html
+<input data-aa-oncustomparam="onCustomParam" data-val="1" type="text" value="test custom param" />
+````
+
+###data-aa-onbefore
+Specifies the function name to call before Ajax Request.
+
+- Optional
+- Type: String (function name)
+- Default: null
+
+###data-aa-onerror
+Specifies the function name to call when a error occur.
+
+- Optional
+- Type: String (function name)
+- Default: null
+
+###data-aa-onsuccess
+Specifies the function name to call when Ajax Reuqest is succeeded.
+
+- Optional
+- Type: String (function name)
+- Default: null
+
+###data-aa-oncomplete
+Specifies the function name to call when Ajax Reuqest is completed after the success event.
+
+- Optional
+- Type: String (function name)
+- Default: null
 
 ##Form validation
 ###data-aa-msg-valid
