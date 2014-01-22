@@ -252,7 +252,7 @@ This option has to be used with <code>data-aa-msg-success</code> option.
 Specifies the css selector of target element that the response data will be displayed in.
 - Optional
 - Type: String (css selector)
-- Default: "text"
+- Default: null
 
 #####Code example:
 ````html
@@ -261,32 +261,238 @@ Specifies the css selector of target element that the response data will be disp
 ````
 
 ###data-aa-tmpltarget
+Specifies the css selector of the script tag for jQuery Template.
+- Optional
+- Type: String (css selector)
+- Default: null
+
+#####Code example:
+````html
+<form ajax data-aa-url="ajaxtest.php" data-aa-datatype="json" data-aa-resulttarget="#result_target"
+	data-aa-tmpltarget="#script">
+	<input type="text" name="text1"/>
+	<input type="text" name="text2"/>
+	<input type="submit" value="test"/>
+</form>
+<div id="result_target">
+</div>
+<script id="script" type="text/x-jquery-tmpl">
+	${text1}, ${text2}
+</script>
+````
+
 ###data-aa-msg-confirm
+Specifies the message for confirm dialog.
+This option opens a confirm dialog with the message of it before Ajax Request.
+- Optional
+- Type: String (Message for confirm dialog)
+- Default: null
+
 ###data-aa-msg-complete
+Specifies the message that you want to display when Ajax Request is completed.
+- Optional
+- Type: String
+- Default: null
+
 ###data-aa-msg-error
+Specifies the message that will be displayed when error occur on Ajax Request.
+- Optional
+- Type: String
+- Default: "failed: unknown server error"
+````html
+<input data-aa-successtext="success" data-aa-msg-fail="You didn't it" 
+data-aa-msg-success="You did it!!" data-aa-url="ajaxtest.php" 
+	type="button" value="Test success text!" />
+````
+
 ###data-aa-msg-success
+Specifies the message that will be displayed when Ajax Request is succeeded that occurs before complete event.
+- Optional
+- Type: String
+- Default: null
+
 ###data-aa-msg-fail
+Specifies the message that will be displayed when Ajax Request is failed that occurs before complete event.
+- Optional
+- Type: String
+- Default: "failed"
+
+#####Code example:
+````html
+//If a error occur, "error occurred!" text will be displayed.
+<input data-aa-msg-error="error occurred!" data-aa-alert-error="true" type="button" value="error test" />
+````
+
 ###data-aa-msg-empty
+Specifies the message that will be displayed in the result target if the response data is empty.
+- Optional
+- Type: String
+- Default: null
+
+#####Code example:
+````html
+<input data-aa-msg-empty="data is empty!!" data-aa-resulttarget="#result_target" />
+<div id="result_target"></div>
+````
+
 ###data-aa-alert-error
+Specifies whether to display error message when error occur.
+- Optional
+- Type: Boolean
+- Default: false
+
 ###data-aa-alert-success
+Specifies whether to display the response data.
+- Optional
+- Type: Boolean
+- Default: false
+
 ###data-aa-alerttype
+Specifies type of message that will be displayed.
+- Optional
+- Type: String (ex: alert, value(inline tags), text(block tags))
+- Default: "alert"
+
+#####Code example:
+````html
+//This input opens a alert dialog with the response data.
+<input data-aa-alerttype="alert" data-aa-alert-success="true" type="button" value="alert test" />
+
+//This input appends the response data to #result_target.
+<input data-aa-alerttype="text" data-aa-alerttarget="#result_target" data-aa-alert-success="true"
+	type="button" value="alert test in result target"/>
+<div id="result_target"></div>
+````
+
 ###data-aa-alerttarget
+Specifies the selector that messages will be displayed on.
+- Optional
+- Type: String (css selector)
+- Default: null
+
+#####Code example:
+````html
+//This input appends the response data to #result_target.
+<input data-aa-alerttarget="#result_target" data-aa-alerttype="text"  data-aa-alert-success="true"
+	type="button" value="alert test in result target"/>
+<div id="result_target"></div>
+````
+
 ###data-aa-focus-error
-###data-aa-focus-success
+Specifies the selector that will focus when a error occur.
+- Optional
+- Type: String (css selector)
+- Default: null
+
+###data-aa-focus-complete
+Specifies the selector that will focus on the complete event after Ajax Request.
+- Optional
+- Type: String (css selector)
+- Default: null
 
 ##Events
-###data-aa-onerror
-###data-aa-onsuccess
-###data-aa-oncomplete
-###data-aa-onbefore
+
+###Event flow
+1. data-aa-oncustomparam
+2. data-aa-onbefore
+3. Ajax Request
+4. data-aa-onerror, data-aa-onsuccess
+5. data-aa-oncomplete
+
 ###data-aa-oncustomparam
+Specifies the function name to make the custom parameters.
+You have to return the query param.
+- Optional
+- Type: String (function name)
+- Default: null
+
+#####Code example:
+````javascript
+function onCustomParam($this) {
+	var customParam = parseInt($this.attr("data-val")) + 1;
+	var param = "custom_param=" + customParam;
+	
+	// The "custom_param" param will be sended to the server.
+	return param;
+}
+````
+````html
+<input data-aa-oncustomparam="onCustomParam" data-val="1" type="text" value="test custom param" />
+````
+
+###data-aa-onbefore
+Specifies the function name to call before Ajax Request.
+- Optional
+- Type: String (function name)
+- Default: null
+
+###data-aa-onerror
+Specifies the function name to call when a error occur.
+- Optional
+- Type: String (function name)
+- Default: null
+
+###data-aa-onsuccess
+Specifies the function name to call when Ajax Reuqest is succeeded.
+- Optional
+- Type: String (function name)
+- Default: null
+
+###data-aa-oncomplete
+Specifies the function name to call when Ajax Reuqest is completed after the success event.
+- Optional
+- Type: String (function name)
+- Default: null
 
 ##Form validation
-###data-aa-msg-valid
-###data-aa-input-name
-###data-aa-valid-number
-###data-aa-valid-email
-###data-aa-valid-letter
-###data-aa-valid-notempty
-###data-aa-valid-regexp
+This attributes are effective on input tags in Form tag or subform tag(fake form).
 
+###data-aa-msg-valid
+Specifies the message to display when the value of a input tag is invalid.
+- Optional
+- Type: String
+- Default: null
+
+###data-aa-input-name
+Specifies the input name to display with default message when the value of a input tag is invalid.
+- Optional
+- Type: String
+- Default: null
+
+###data-aa-valid-number
+The input with this option can only have numbers.
+- Optional
+
+#####Code example:
+````html
+<form>
+	// This input can only have numbers.
+	<input data-aa-valid-number type="text" />
+</form>
+````
+
+###data-aa-valid-email
+The input with this option can only email string.
+- Optional
+
+###data-aa-valid-letter
+The input with this option can only have letters.
+- Optional
+
+###data-aa-valid-notempty
+The input with this option cannot be empty.
+- Optional
+
+###data-aa-valid-regexp
+Specifies the custom regular expression to validate the value of a input.
+- Optional
+- Type: String (Regular Expression)
+- Default: null
+
+#####Code example:
+````html
+<form>
+	// This input can only have 0-9 numbers and a-z string.
+	<input data-aa-valid_regexp="^[a-z0-9]+$" type="text" />
+</form>
+````
