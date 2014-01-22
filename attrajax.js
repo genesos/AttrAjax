@@ -24,7 +24,7 @@
 
 			"data-aa-msg-confirm": null, // string
 			"data-aa-msg-complete": null,
-			"data-aa-msg-error": "failed:  unknown server error",
+			"data-aa-msg-error": "failed: unknown server error",
 			"data-aa-msg-success": null,
 			"data-aa-msg-fail": "failed",
 			"data-aa-msg-empty": null,
@@ -36,7 +36,7 @@
 			"data-aa-alerttarget": null, //css selector
 
 			"data-aa-focus-error": null, // css selector
-			"data-aa-focus-success": null
+			"data-aa-focus-complete": null
 		},
 		CALLBACK: [
 			"data-aa-onerror", // function name string
@@ -48,7 +48,7 @@
 		VALIDATION_REGEXP: {
 			"data-aa-valid-number": "^[0-9]*$",
 			"data-aa-valid-email": "^(.+@.+[.].+)$",
-			"data-aa-valid-letter": "^[a-z]*$",
+			"data-aa-valid-letter": "^[a-zA-Z]*$",
 			"data-aa-valid-notempty": "^.+$",
 			"data-aa-valid-regexp": ""
 		},
@@ -212,7 +212,7 @@
 						},
 						success: function (data) {
 							if (options["data-aa-alert-success"] == "true") {
-								alert(data);
+								$.attrAjax.printMsg(options, data);
 							}
 							if (options["data-aa-onsuccess"]) {
 								options["data-aa-onsuccess"]($this, data);
@@ -257,8 +257,8 @@
 							if (options["data-aa-msg-complete"]) {
 								$.attrAjax.printMsg(options, options["data-aa-msg-complete"]);
 							}
-							if (options["data-aa-focus-success"]) {
-								$(options["data-aa-focus-success"]).focus();
+							if (options["data-aa-focus-complete"]) {
+								$(options["data-aa-focus-complete"]).focus();
 							}
 							if (options["data-aa-disableinajax"] == "true") {
 								$this.removeAttr("data-aa-in-disable");
