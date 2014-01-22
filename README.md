@@ -252,7 +252,7 @@ This option has to be used with <code>data-aa-msg-success</code> option.
 Specifies the css selector of target element that the response data will be displayed in.
 - Optional
 - Type: String (css selector)
-- Default: "text"
+- Default: null
 
 #####Code example:
 ````html
@@ -261,16 +261,123 @@ Specifies the css selector of target element that the response data will be disp
 ````
 
 ###data-aa-tmpltarget
+Specifies the css selector of the script tag for jQuery Template.
+- Optional
+- Type: String (css selector)
+- Default: null
+
+#####Code example:
+````html
+<form ajax data-aa-url="ajaxtest.php" data-aa-datatype="json" data-aa-resulttarget="#result_target"
+	data-aa-tmpltarget="#script">
+	<input type="text" name="text1"/>
+	<input type="text" name="text2"/>
+	<input type="submit" value="test"/>
+</form>
+<div id="result_target">
+</div>
+<script id="script" type="text/x-jquery-tmpl">
+	${text1}, ${text2}
+</script>
+````
+
 ###data-aa-msg-confirm
+Specifies the message for confirm dialog.
+This option opens a confirm dialog with the message of it before Ajax Request.
+- Optional
+- Type: String (Message for confirm dialog)
+- Default: null
+
 ###data-aa-msg-complete
+Specifies the message that you want to display when Ajax Request is completed.
+- Optional
+- Type: String
+- Default: null
+
 ###data-aa-msg-error
+Specifies the message that will be displayed when error occur on Ajax Request.
+- Optional
+- Type: String
+- Default: "failed: unknown server error"
+````html
+<input data-aa-successtext="success" data-aa-msg-fail="You didn't it" 
+data-aa-msg-success="You did it!!" data-aa-url="ajaxtest.php" 
+	type="button" value="Test success text!" />
+````
+
 ###data-aa-msg-success
+Specifies the message that will be displayed when Ajax Request is succeeded that occurs before complete event.
+- Optional
+- Type: String
+- Default: null
+
 ###data-aa-msg-fail
+Specifies the message that will be displayed when Ajax Request is failed that occurs before complete event.
+- Optional
+- Type: String
+- Default: "failed"
+
+#####Code example:
+````html
+//If a error occur, "error occurred!" text will be displayed.
+<input data-aa-msg-error="error occurred!" data-aa-alert-error="true" type="button" value="error test" />
+````
+
 ###data-aa-msg-empty
+Specifies the message that will be displayed in the result target if the response data is empty.
+- Optional
+- Type: String
+- Default: null
+
+#####Code example:
+````html
+<input data-aa-msg-empty="data is empty!!" data-aa-resulttarget="#result_target" />
+<div id="result_target"></div>
+````
+
 ###data-aa-alert-error
+Specifies whether to display error message when error occur.
+- Optional
+- Type: Boolean
+- Default: false
+
 ###data-aa-alert-success
+Specifies whether to display the response data.
+- Optional
+- Type: Boolean
+- Default: false
+
 ###data-aa-alerttype
+Specifies type of message that will be displayed.
+- Optional
+- Type: String (ex: alert, value(inline tags), text(block tags))
+- Default: "alert"
+
+#####Code example:
+````html
+//This input opens a alert dialog with the response data.
+<input data-aa-alerttype="alert" data-aa-alert-success="true" type="button" value="alert test" />
+
+//This input appends the response data to #result_target.
+<input data-aa-alerttype="text" data-aa-alerttarget="#result_target" data-aa-alert-success="true"
+	type="button" value="alert test in result target"/>
+<div id="result_target"></div>
+````
+
 ###data-aa-alerttarget
+Specifies the selector that messages will be displayed on.
+- Optional
+- Type: String (css selector)
+- Default: null
+
+#####Code example:
+````html
+//This input appends the response data to #result_target.
+<input data-aa-alerttarget="#result_target" data-aa-alerttype="text"  data-aa-alert-success="true"
+	type="button" value="alert test in result target"/>
+<div id="result_target"></div>
+````
+
 ###data-aa-focus-error
 ###data-aa-focus-success
 
