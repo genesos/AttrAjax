@@ -422,38 +422,77 @@ function onCustomParam($this) {
 
 ###data-aa-onbefore
 Specifies the function name to call before Ajax Request.
-
 - Optional
 - Type: String (function name)
 - Default: null
 
 ###data-aa-onerror
 Specifies the function name to call when a error occur.
-
 - Optional
 - Type: String (function name)
 - Default: null
 
 ###data-aa-onsuccess
 Specifies the function name to call when Ajax Reuqest is succeeded.
-
 - Optional
 - Type: String (function name)
 - Default: null
 
 ###data-aa-oncomplete
 Specifies the function name to call when Ajax Reuqest is completed after the success event.
-
 - Optional
 - Type: String (function name)
 - Default: null
 
 ##Form validation
-###data-aa-msg-valid
-###data-aa-input-name
-###data-aa-valid-number
-###data-aa-valid-email
-###data-aa-valid-letter
-###data-aa-valid-notempty
-###data-aa-valid-regexp
+This attributes are effective on input tags in Form tag or subform tag(fake form).
 
+###data-aa-msg-valid
+Specifies the message to display when the value of a input tag is invalid.
+- Optional
+- Type: String
+- Default: null
+
+###data-aa-input-name
+Specifies the input name to display with default message when the value of a input tag is invalid.
+- Optional
+- Type: String
+- Default: null
+
+###data-aa-valid-number
+The input with this option can only have numbers.
+- Optional
+
+#####Code example:
+````html
+<form>
+	// This input can only have numbers.
+	<input data-aa-valid-number type="text" />
+</form>
+````
+
+###data-aa-valid-email
+The input with this option can only email string.
+- Optional
+
+###data-aa-valid-letter
+The input with this option can only have letters.
+- Optional
+
+###data-aa-valid-notempty
+The input with this option cannot be empty.
+- Optional
+
+###data-aa-valid-regexp
+Specifies the custom regular expression to validate the value of a input.
+- Optional
+- Type: String (Regular Expression)
+- Default: null
+
+#####Code example:
+````html
+<form>
+	// This input can only have 0-9 numbers and a-z string.
+	<input data-aa-valid_regexp="^[a-z0-9]+$" type="text" />
+</form>
+````
