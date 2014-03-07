@@ -111,7 +111,7 @@ Specifies the timeout(milli seconds) of ajax request.
 - Type: Integer
 - Default: 5000
 
-###data-aa-disableinajax
+###data-aa-disable-in-working
 Specifies whether the tag should be disabled in ajax request.
 If you don't want to send duplicated ajax requests in a ajax request, write 'true' on the value of this option.
 - Optional
@@ -124,7 +124,7 @@ If you don't want to send duplicated ajax requests in a ajax request, write 'tru
 <span data-aa-url="disabletest.com">Disable in ajax</span>
 
 //This tag could be duplicately called in ajax request.
-<span data-aa-disableinajax="false" data-aa-url="disabletest.com">Enable in ajax</span>
+<span data-aa-disable-in-working="false" data-aa-url="disabletest.com">Enable in ajax</span>
 ````
 
 ###data-aa-sync
@@ -157,7 +157,7 @@ Specifies params as query param string of GET method's url.
   type="button" value="ajax request!" />
 ````
 
-###data-aa-subform
+###data-aa-param-form
 Specifies css selector of the fake form that you want to use like form tag.
 All input data with name attribute in the selected fake form will be sended to the server and be validated automatically.
 You can use the fake forms in the real form tag.
@@ -179,7 +179,7 @@ You can use the fake forms in the real form tag.
 			<option value="1">test1</option>
 			<option value="2">test2</option>
 		</select>
-		<input data-aa-subform="#fakeform" data-aa-url="fakeform.com" class="ajax" 
+		<input data-aa-param-form="#fakeform" data-aa-url="fakeform.com" class="ajax" 
 			type="button" value="test fake form!" />
 	</div>
 </form>
@@ -211,7 +211,7 @@ $(function () {
 	class="ajax" type="button"value="test stop propagation">
 ````
 
-###data-aa-datainit
+###data-aa-onsuccess-clear-input
 Specifies whether to remove(initialize) the data that was displayed after Ajax request.
 - Optional
 - Type: Boolean
@@ -223,7 +223,7 @@ Specifies whether to remove(initialize) the data that was displayed after Ajax r
 <input data-aa-resulttarget="#setBox" data-aa-url="ajaxtest.php" type="button" value="Set new text!" />
 
 <div id="addBox">New response text will be added under this text.</div>
-<input data-aa-datainit="false" data-aa-resulttarget="#addBox" data-aa-url="ajaxtest.php" 
+<input data-aa-onsuccess-clear-input="false" data-aa-resulttarget="#addBox" data-aa-url="ajaxtest.php" 
 	type="button" value="Add new text!" />
 ````
 
@@ -233,10 +233,10 @@ Specifies data type of response data after Ajax request.
 - Type: String ("text", "json", "xml", "script", "html", "jsonp")
 - Default: "text"
 
-###data-aa-successtext
+###data-aa-success-if-result-is
 The meaning of this text is the success of ajax request.
 When you set "success" text on this option, if response data is "success" text, the success message could be displayed.
-This option has to be used with <code>data-aa-msg-success</code> option.
+This option has to be used with <code>data-aa-onsuccess-msg</code> option.
 - Optional
 - Type: String
 - Default: null
@@ -244,7 +244,7 @@ This option has to be used with <code>data-aa-msg-success</code> option.
 #####Code example:
 ````html
 //If the response data is "success" text, "you did it!!" text will be displayed.
-<input data-aa-successtext="success" data-aa-msg-success="You did it!!" data-aa-url="ajaxtest.php" 
+<input data-aa-success-if-result-is="success" data-aa-onsuccess-msg="You did it!!" data-aa-url="ajaxtest.php" 
 	type="button" value="Test success text!" />
 ````
 
@@ -281,37 +281,37 @@ Specifies the css selector of the script tag for jQuery Template.
 </script>
 ````
 
-###data-aa-msg-confirm
+###data-aa-confirm
 Specifies the message for confirm dialog.
 This option opens a confirm dialog with the message of it before Ajax Request.
 - Optional
 - Type: String (Message for confirm dialog)
 - Default: null
 
-###data-aa-msg-complete
+###data-aa-oncomplete-msg
 Specifies the message that you want to display when Ajax Request is completed.
 - Optional
 - Type: String
 - Default: null
 
-###data-aa-msg-error
+###data-aa-onerror-msg
 Specifies the message that will be displayed when error occur on Ajax Request.
 - Optional
 - Type: String
 - Default: "failed: unknown server error"
 ````html
-<input data-aa-successtext="success" data-aa-msg-fail="You didn't it" 
-data-aa-msg-success="You did it!!" data-aa-url="ajaxtest.php" 
+<input data-aa-success-if-result-is="success" data-aa-onfail-msg="You didn't it" 
+data-aa-onsuccess-msg="You did it!!" data-aa-url="ajaxtest.php" 
 	type="button" value="Test success text!" />
 ````
 
-###data-aa-msg-success
+###data-aa-onsuccess-msg
 Specifies the message that will be displayed when Ajax Request is succeeded that occurs before complete event.
 - Optional
 - Type: String
 - Default: null
 
-###data-aa-msg-fail
+###data-aa-onfail-msg
 Specifies the message that will be displayed when Ajax Request is failed that occurs before complete event.
 - Optional
 - Type: String
@@ -320,10 +320,10 @@ Specifies the message that will be displayed when Ajax Request is failed that oc
 #####Code example:
 ````html
 //If a error occur, "error occurred!" text will be displayed.
-<input data-aa-msg-error="error occurred!" data-aa-alert-error="true" type="button" value="error test" />
+<input data-aa-onerror-msg="error occurred!" data-aa-onerror-alert="true" type="button" value="error test" />
 ````
 
-###data-aa-msg-empty
+###data-aa-onempty-msg
 Specifies the message that will be displayed in the result target if the response data is empty.
 - Optional
 - Type: String
@@ -331,17 +331,17 @@ Specifies the message that will be displayed in the result target if the respons
 
 #####Code example:
 ````html
-<input data-aa-msg-empty="data is empty!!" data-aa-resulttarget="#result_target" />
+<input data-aa-onempty-msg="data is empty!!" data-aa-resulttarget="#result_target" />
 <div id="result_target"></div>
 ````
 
-###data-aa-alert-error
+###data-aa-onerror-alert
 Specifies whether to display error message when error occur.
 - Optional
 - Type: Boolean
 - Default: false
 
-###data-aa-alert-success
+###data-aa-onerror-focus
 Specifies whether to display the response data.
 - Optional
 - Type: Boolean
@@ -356,10 +356,10 @@ Specifies type of message that will be displayed.
 #####Code example:
 ````html
 //This input opens a alert dialog with the response data.
-<input data-aa-alerttype="alert" data-aa-alert-success="true" type="button" value="alert test" />
+<input data-aa-alerttype="alert" data-aa-onsuccess-alert="true" type="button" value="alert test" />
 
 //This input appends the response data to #result_target.
-<input data-aa-alerttype="text" data-aa-alerttarget="#result_target" data-aa-alert-success="true"
+<input data-aa-alerttype="text" data-aa-alerttarget="#result_target" data-aa-onsuccess-alert="true"
 	type="button" value="alert test in result target"/>
 <div id="result_target"></div>
 ````
@@ -373,18 +373,18 @@ Specifies the selector that messages will be displayed on.
 #####Code example:
 ````html
 //This input appends the response data to #result_target.
-<input data-aa-alerttarget="#result_target" data-aa-alerttype="text"  data-aa-alert-success="true"
+<input data-aa-alerttarget="#result_target" data-aa-alerttype="text"  data-aa-onsuccess-alert="true"
 	type="button" value="alert test in result target"/>
 <div id="result_target"></div>
 ````
 
-###data-aa-focus-error
+###data-aa-onerror-focus
 Specifies the selector that will focus when a error occur.
 - Optional
 - Type: String (css selector)
 - Default: null
 
-###data-aa-focus-complete
+###data-aa-oncomplete-focus
 Specifies the selector that will focus on the complete event after Ajax Request.
 - Optional
 - Type: String (css selector)
