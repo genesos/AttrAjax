@@ -171,7 +171,11 @@
 
                     if (options["data-aa-oncustomparam"]) {
                         if (param) param += "&";
-                        param += options["data-aa-oncustomparam"]($this);
+                        var custrom_param = options["data-aa-oncustomparam"]($this)
+                        if(typeof custrom_param == 'object')
+                            param += $.param(custrom_param);
+                        else
+                            param += custrom_param;
                     }
 
                     //confirm
