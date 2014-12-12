@@ -6,42 +6,44 @@
             "data-aa-url": window.location.pathname, // url string
             "data-aa-event": "click", // event type string
             "data-aa-method": "get", // method string
-            "data-aa-timeout": 5000, // integer (milli seconds)
+            "data-aa-timeout": null, // integer (milli seconds)
 
-            "data-aa-disable-in-working": "true",
+            "data-aa-disable-in-working": true,
             "data-aa-sync": null, // sync id
             "data-aa-datatype": "text", // text, json string
-            "data-aa-stoppropagation": "false", // true or false string
+            "data-aa-stoppropagation": false, // true or false string
 
             "data-aa-confirm": null, // string
 
             "data-aa-param": null, // query string
             "data-aa-param-form": null, // css selector
 
-            "data-aa-resulttarget": null, // css selector
-            "data-aa-tmpltarget": null,
+            "data-aa-result-to": null, // css selector
+            "data-aa-tmpl-with": null,
 
+            "data-aa-oncomplete-alert": false, //true or false string
             "data-aa-oncomplete-msg": null,
             "data-aa-oncomplete-focus": null,
 
+            "data-aa-onerror-alert": false, //true or false string
             "data-aa-onerror-msg": "failed: unknown server error",
-            "data-aa-onerror-alert": "false", //true or false string
             "data-aa-onerror-focus": null, // css selector
 
             "data-aa-success-if-result-is": null,
             "data-aa-onsuccess-msg": null,
-            "data-aa-onsuccess-alert": "false",
-            "data-aa-onsuccess-clear-input": "true", // true or false string
+            "data-aa-onsuccess-alert": false,
+            "data-aa-onsuccess-clear-input": true, // true or false string
+            "data-aa-onfail-alert": false,
             "data-aa-onfail-msg": "failed",
 
             "data-aa-onempty-msg": null,
 
-            "data-aa-alerttype": "alert", //alert, value or text string
-            "data-aa-alerttarget": null //css selector
+            "data-aa-alert-type": "alert", //alert, value or text string
+            "data-aa-alert-target": null //css selector
         },
         CALLBACK: [
             "data-aa-oncustomparam", // function name string
-            "data-aa-onbefore", // function name string
+            "data-aa-onsubmit", // function name string
             "data-aa-onsuccess", // function name string
             "data-aa-onerror", // function name string
             "data-aa-oncomplete" // function name string
@@ -50,21 +52,26 @@
             "data-aa-valid-number": "^[0-9]*$",
             "data-aa-valid-email": "^(.+@.+[.].+)$",
             "data-aa-valid-letter": "^[a-zA-Z]*$",
-            "data-aa-valid-notempty": "^.+$",
+            "data-aa-valid-notempty": "^(.|\n)+$",
             "data-aa-valid-regexp": ""
         },
         MUTEX: {},
         //"data-aa-msg-valid"	//validation error message of input in form or subform
         //"data-aa-input-name"	//input name of input in form or subform
         printMsg: function (options, msg) {
-            var alert_method = options["data-aa-alerttype"];
-            var alert_target = options["data-aa-alerttarget"];
+            var alert_method = options["data-aa-alert-type"];
+            var alert_target = options["data-aa-alert-target"];
             if (alert_method == "alert") {
                 alert(msg);
             } else if (alert_method == "text") {
                 $(alert_target).text(msg);
-            } else if (alert_method == "value") {
+            } else if (alert_method == "html") {
+                $(alert_target).html(msg);
+            } else if (alert_method == "value" || alert_method == "val") {
                 $(alert_target).val(msg);
+            } else if (alert_method == "popup") {
+                var myWindow = window.open('', '', 'width=400,height=300');
+                myWindow.document.write(msg);
             }
         }
     });
@@ -93,7 +100,7 @@
                         e.returnValue = false;
                     }
 
-                    if ($this.attr("data-aa-stoppropagation") == "true") {
+                    if ($this.attr("data-aa-stoppropagation") !== undefined) {
                         if (e.stopPropagation) {
                             e.stopPropagation();
                         } else {
@@ -107,7 +114,12 @@
                     for (var name in $.attrAjax.OPTION) {
                         if (!$.attrAjax.OPTION.hasOwnProperty(name))
                             continue;
-                        options[name] = $this.attr(name) ? $this.attr(name) : $.attrAjax.OPTION[name];
+                        if ($this.attr(name) === undefined)
+                            options[name] = $.attrAjax.OPTION[name];
+                        else if ($this.attr(name) === '')
+                            options[name] = true;
+                        else
+                            options[name] = $this.attr(name);
                     }
 
                     for (var i in $.attrAjax.CALLBACK) {
@@ -115,19 +127,9 @@
                             continue;
                         key = $.attrAjax.CALLBACK[i];
                         if ($this.attr(key)) {
-                            eval("options[key] = " + $this.attr(key));
+                            options[key] = eval($this.attr(key));
                         } else {
                             options[key] = null;
-                        }
-                    }
-
-                    for (key in option) {
-                        if (!option.hasOwnProperty(key))
-                            continue;
-                        if (option[key] === true || option[key] === false) {
-                            options[key] = option[key] === true ? "true" : "false";
-                        } else {
-                            options[key] = option[key];
                         }
                     }
 
@@ -144,10 +146,10 @@
                     var param = options["data-aa-param"] || "";
 
                     if (options["data-aa-param-form"]) {
-                        if (options["data-aa-param-form"] == "this") {
-                            inputs = $this.find("input[type!=submit]input[type!=button], textarea, select");
+                        if (options["data-aa-param-form"] === "" || options["data-aa-param-form"] == "this") {
+                            inputs = $this.find("input[type!=submit][type!=button], textarea, select");
                         } else {
-                            inputs = $(options["data-aa-param-form"]).find("input[type!=submit]input[type!=button], textarea, select");
+                            inputs = $(options["data-aa-param-form"]).find("input[type!=submit][type!=button], textarea, select");
                         }
                         if (inputs.length) {
                             if (!$(options["data-aa-param-form"]).validate(options)) {
@@ -159,7 +161,7 @@
                     }
 
                     if (isForm) {
-                        inputs = $(this).find("input[type!=submit]input[type!=button], textarea, select");
+                        inputs = $(this).find("input[type!=submit][type!=button], textarea, select");
                         if (inputs.length) {
                             if (!$this.validate(options)) {
                                 return false;
@@ -172,7 +174,7 @@
                     if (options["data-aa-oncustomparam"]) {
                         if (param) param += "&";
                         var custrom_param = options["data-aa-oncustomparam"]($this)
-                        if(typeof custrom_param == 'object')
+                        if (typeof custrom_param == 'object')
                             param += $.param(custrom_param);
                         else
                             param += custrom_param;
@@ -186,14 +188,14 @@
                     }
 
                     //callback before ajax
-                    if (options["data-aa-onbefore"]) {
-                        var ret = options["data-aa-onbefore"]($this);
+                    if (options["data-aa-onsubmit"]) {
+                        var ret = options["data-aa-onsubmit"]($this);
                         if (ret === false) {
                             return true;
                         }
                     }
 
-                    if (options["data-aa-disable-in-working"] == "true") {
+                    if (options["data-aa-disable-in-working"]) {
                         $this.attr("data-aa-in-disable", "true");
                         if (isForm) {
                             $this.find("input[type=button], input[type=submit]").attr("disabled", "disabled").css("opacity", "0.5");
@@ -202,8 +204,8 @@
                         }
                     }
 
-                    if (options["data-aa-onsuccess-clear-input"] == "true" && options["data-aa-resulttarget"]) {
-                        $(options["data-aa-resulttarget"]).empty();
+                    if (options["data-aa-onsuccess-clear-input"] && options["data-aa-result-to"]) {
+                        $(options["data-aa-result-to"]).empty();
                     }
 
                     $.ajax({
@@ -212,67 +214,79 @@
                         dataType: options["data-aa-datatype"],
                         data: param,
                         timeout: options["data-aa-timeout"],
-                        error: function () {
-                            if (options["data-aa-onerror"]) {
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            if (options["data-aa-onerror-alert"]) {
+                                if (!xhr.responseText) {
+                                    $.attrAjax.printMsg(options, options["data-aa-onerror-msg"]);
+                                } else {
+                                    $.attrAjax.printMsg(options, xhr.responseText);
+                                }
+                            }
+                            else if (options["data-aa-onerror"]) {
                                 options["data-aa-onerror"]($this);
                             }
-                            if (options["data-aa-onerror-alert"] == "true") {
-                                $.attrAjax.printMsg(options, options["data-aa-onerror-msg"]);
-                            }
+
                             if (options["data-aa-onerror-focus"]) {
                                 $(options["data-aa-onerror-focus"]).focus();
                             }
                         },
                         success: function (data) {
-                            if (options["data-aa-onsuccess-alert"] == "true") {
+
+                            if (typeof data.success !== "undefined") { //json 형태로 리턴할 경우를 위한 처리
+                                data = data.success.toString();
+                            }
+
+                            if (options["data-aa-success-if-result-is"]) {
+                                if (data && options["data-aa-success-if-result-is"] == data) {
+                                    if (options["data-aa-onsuccess"]) {
+                                        options["data-aa-onsuccess"]($this, data);
+                                    }
+                                    if (options["data-aa-onsuccess-msg"])
+                                        $.attrAjax.printMsg(options, options["data-aa-onsuccess-msg"]);
+                                    if (options["data-aa-onsuccess-alert"])
+                                        $.attrAjax.printMsg(options, data);
+                                } else {
+                                    if (options["data-aa-onfail-alert"])
+                                        $.attrAjax.printMsg(options, data);
+                                    else if (options["data-aa-onfail-msg"])
+                                        $.attrAjax.printMsg(options, options["data-aa-onfail-msg"]);
+                                }
+                            }
+                            if (options["data-aa-oncomplete"]) {
+                                options["data-aa-oncomplete"](data);
+                            }
+                            if (options["data-aa-oncomplete-msg"]) {
+                                $.attrAjax.printMsg(options, options["data-aa-oncomplete-msg"]);
+                            }
+                            if (options["data-aa-oncomplete-alert"]) {
                                 $.attrAjax.printMsg(options, data);
                             }
-                            if (options["data-aa-onsuccess"]) {
-                                options["data-aa-onsuccess"]($this, data);
-                            }
-                            if (options["data-aa-onsuccess-msg"]) {
-                                if (options["data-aa-success-if-result-is"]) {
-                                    if (options["data-aa-success-if-result-is"] == data) {
-                                        $.attrAjax.printMsg(options, options["data-aa-onsuccess-msg"]);
-                                    }
-                                    else if (options["data-aa-onfail-msg"]) {
-                                        $.attrAjax.printMsg(options, options["data-aa-onfail-msg"]);
-                                    }
-                                } else {
-                                    $.attrAjax.printMsg(options, options["data-aa-onsuccess-msg"]);
-                                }
+                            if (options["data-aa-oncomplete-focus"]) {
+                                $(options["data-aa-oncomplete-focus"]).focus();
                             }
 
                             if (data) {
-                                if (options["data-aa-tmpltarget"] && $(options["data-aa-tmpltarget"]).length && options["data-aa-resulttarget"]) {
-                                    $(options["data-aa-resulttarget"]).append($(options["data-aa-tmpltarget"]).tmpl(data));
+                                if (options["data-aa-tmpl-with"] && $(options["data-aa-tmpl-with"]).length && options["data-aa-result-to"]) {
+                                    $(options["data-aa-result-to"]).append($(options["data-aa-tmpl-with"]).tmpl($.parseJSON(data)));
                                 } else {
-                                    if (options["data-aa-resulttarget"]) {
-                                        $(options["data-aa-resulttarget"]).append(data);
+                                    if (options["data-aa-result-to"]) {
+                                        $(options["data-aa-result-to"]).append(data);
                                     }
                                 }
-                            } else {
-                                if (options["data-aa-onempty-msg"] && options["data-aa-resulttarget"]) {
-                                    $(options["data-aa-resulttarget"]).append(options["data-aa-onempty-msg"]);
+                            }
+                            else {
+                                if (options["data-aa-onempty-msg"]) {
+                                    $.attrAjax.printMsg(options, options["data-aa-onempty-msg"]);
                                 }
                             }
                         },
-                        complete: function () {
+                        complete: function (jqxhr) {
                             //sync
                             if (options["data-aa-sync"]) {
                                 $.attrAjax.MUTEX[options["data-aa-sync"]] = false;
                             }
 
-                            if (options["data-aa-oncomplete"]) {
-                                options["data-aa-oncomplete"]($this);
-                            }
-                            if (options["data-aa-oncomplete-msg"]) {
-                                $.attrAjax.printMsg(options, options["data-aa-oncomplete-msg"]);
-                            }
-                            if (options["data-aa-oncomplete-focus"]) {
-                                $(options["data-aa-oncomplete-focus"]).focus();
-                            }
-                            if (options["data-aa-disable-in-working"] == "true") {
+                            if (options["data-aa-disable-in-working"]) {
                                 $this.removeAttr("data-aa-in-disable");
                                 if (isForm) {
                                     $this.find("input[type=button], input[type=submit]").removeAttr("disabled").css("opacity", "1.0");
@@ -280,6 +294,9 @@
                                     $this.removeAttr("disabled").css("opacity", "1.0");
                                 }
                             }
+                        },
+                        fail: function (xhr, status, error) {
+                            alert(xhr.responseText);
                         }
                     });
                     return true;
@@ -287,7 +304,7 @@
             });
         },
         validate: function (options) {
-            var inputs = $(this).find("input[type!=submit]input[type!=button], textarea, select");
+            var inputs = $(this).find("input[type!=submit][type!=button], textarea, select");
             if (!inputs.length) {
                 return true;
             }
@@ -330,4 +347,4 @@
 
         }
     });
-}(jQuery) );
+}(jQuery));
