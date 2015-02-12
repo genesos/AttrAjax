@@ -10,7 +10,7 @@
 
             "data-aa-disable-in-working": true,
             "data-aa-sync": null, // sync id
-            "data-aa-datatype": "text", // text, json string
+            "data-aa-datatype": "json", // text, json string
             "data-aa-stoppropagation": false, // true or false string
 
             "data-aa-confirm": null, // string
@@ -232,26 +232,51 @@
                         },
                         success: function (data) {
 
-                            if (typeof data.success !== "undefined") { //json 형태로 리턴할 경우를 위한 처리
-                                data = data.success.toString();
-                            }
-
-                            if (options["data-aa-success-if-result-is"]) {
-                                if (data && options["data-aa-success-if-result-is"] == data) {
-                                    if (options["data-aa-onsuccess"]) {
-                                        options["data-aa-onsuccess"]($this, data);
+                            if (data) {
+                                if (options["data-aa-datatype"] == 'text') {
+                                    if (typeof data !== "undefined") {
+                                        data = data.toString();
                                     }
-                                    if (options["data-aa-onsuccess-msg"])
-                                        $.attrAjax.printMsg(options, options["data-aa-onsuccess-msg"]);
-                                    if (options["data-aa-onsuccess-alert"])
-                                        $.attrAjax.printMsg(options, data);
-                                } else {
-                                    if (options["data-aa-onfail-alert"])
-                                        $.attrAjax.printMsg(options, data);
-                                    else if (options["data-aa-onfail-msg"])
-                                        $.attrAjax.printMsg(options, options["data-aa-onfail-msg"]);
+                                    if (options["data-aa-success-if-result-is"]) {
+                                        if (options["data-aa-success-if-result-is"] == data) {
+                                            if (options["data-aa-onsuccess-alert"])
+                                                $.attrAjax.printMsg(options, data);
+                                            else if (options["data-aa-onsuccess-msg"])
+                                                $.attrAjax.printMsg(options, options["data-aa-onsuccess-msg"]);
+                                            if (options["data-aa-onsuccess"]) {
+                                                options["data-aa-onsuccess"]($this, data);
+                                            }
+                                        } else {
+                                            if (options["data-aa-onfail-alert"])
+                                                $.attrAjax.printMsg(options, data);
+                                            else if (options["data-aa-onfail-msg"])
+                                                $.attrAjax.printMsg(options, options["data-aa-onfail-msg"]);
+                                        }
+                                    }
+                                }
+                                else if (options["data-aa-datatype"] == 'json') {
+                                    var success = data.success;
+                                    var msg = data.msg;
+                                    if (typeof msg !== "undefined") {
+                                        msg = msg.toString();
+                                    }
+                                    if (success) {
+                                        if (options["data-aa-onsuccess-alert"])
+                                            $.attrAjax.printMsg(options, msg);
+                                        else if (options["data-aa-onsuccess-msg"])
+                                            $.attrAjax.printMsg(options, options["data-aa-onsuccess-msg"]);
+                                        if (options["data-aa-onsuccess"]) {
+                                            options["data-aa-onsuccess"]($this, data);
+                                        }
+                                    } else {
+                                        if (options["data-aa-onfail-alert"])
+                                            $.attrAjax.printMsg(options, msg);
+                                        else if (options["data-aa-onfail-msg"])
+                                            $.attrAjax.printMsg(options, options["data-aa-onfail-msg"]);
+                                    }
                                 }
                             }
+
                             if (options["data-aa-oncomplete"]) {
                                 options["data-aa-oncomplete"](data);
                             }
@@ -279,7 +304,8 @@
                                     $.attrAjax.printMsg(options, options["data-aa-onempty-msg"]);
                                 }
                             }
-                        },
+                        }
+                        ,
                         complete: function (jqxhr) {
                             //sync
                             if (options["data-aa-sync"]) {
@@ -294,7 +320,8 @@
                                     $this.removeAttr("disabled").css("opacity", "1.0");
                                 }
                             }
-                        },
+                        }
+                        ,
                         fail: function (xhr, status, error) {
                             alert(xhr.responseText);
                         }
