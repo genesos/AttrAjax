@@ -1,0 +1,13 @@
+{
+  "name": "jquery.attrajax",
+  "version": "0.1",
+  "main": "jquery.attrajax.js",
+  "author": "genesos",
+  "dependencies": {
+    "jquery": ">=1.5",
+    "jquery-form": "~3"
+  },
+  "ignore": [
+    "README.md"
+  ]
+}
