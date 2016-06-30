@@ -46,6 +46,7 @@
 
       "data-aa-success-if-result-is": null,
       "data-aa-onsuccess-msg": null,
+      "data-aa-onsuccess-url": null,
       "data-aa-onsuccess-alert": false,
       "data-aa-onsuccess-clear-input": true, // true or false string
 
@@ -261,6 +262,8 @@
                       if (options["data-aa-onsuccess"]) {
                         options["data-aa-onsuccess"](selected_dom, data);
                       }
+                      if (options["data-aa-onsuccess-url"])
+                        window.location.href = options["data-aa-onsuccess-url"];
                     } else {
                       if (options["data-aa-onfail-alert"])
                         $.attrAjax.printMsg(options, data);
@@ -283,6 +286,8 @@
                     if (options["data-aa-onsuccess"]) {
                       options["data-aa-onsuccess"](selected_dom, data);
                     }
+                    if (options["data-aa-onsuccess-url"])
+                      window.location.href = options["data-aa-onsuccess-url"];
                   } else {
                     if (options["data-aa-onfail-alert"])
                       $.attrAjax.printMsg(options, msg);
