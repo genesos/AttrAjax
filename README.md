@@ -73,7 +73,7 @@ $(".ajax").attrAjax();
 <input class="ajax" type="button" value="ajax request!" />
 ````
 ````javascript
-$(".ajax").attrAjax({"data-aa-url" : "http://ajaxurl.com" });
+$(".ajax").attrAjax({"url" : "http://ajaxurl.com" });
 ````
 
 ##Options (attribute keys)
@@ -127,24 +127,6 @@ If you don't want to send duplicated ajax requests in a ajax request, write 'tru
 <span data-aa-disable-in-working="false" data-aa-url="disabletest.com">Enable in ajax</span>
 ````
 
-###data-aa-sync
-Specifies same id on the tags that you want to bind synchronously.
-The tags have same <code>data-aa-sync</code> id could be synchronous.
-- Optional
-- Type: String
-- Default: null
-
-#####Code example:
-````html
-//sync group 1
-<input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
-<input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
-
-//sync group 2
-<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
-<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
-````
-
 ###data-aa-param
 Specifies params as query param string of GET method's url.
 - Optional
@@ -165,7 +147,7 @@ You can use the fake forms in the real form tag.
 - Type: String (css selector of only block element, ex: "#subformid")
 - Default: null
 
-#####Code example:
+#####Code example 1:
 ````html
 <form action="realform.com">
 	<input type="hidden" name="realform_input1" />
@@ -188,42 +170,46 @@ You can use the fake forms in the real form tag.
 $(".ajax").attrAjax();
 ````
 
-###data-aa-stoppropagation
-Specifies whether to prevent further propagation of an event of the tag using attrAjax().
+#####Code example 2:
+````html
+<table>
+	<tr class="del_form">
+		<td>
+			dog
+			<input	type="hidden" name="target" value="dog">
+		</td>
+		<td><button class="del">delete</button></td>
+	</tr>
+	<tr class="del_form">
+		<td>
+			cat
+			<input	type="hidden" name="target" value="cat">
+		</td>
+		<td><button class="del">delete</button></td>
+	</tr>
+</table>
+````
+````javascript
+$("tr.tr_form").each(function(){
+  $('button.del',this).attrAjax({
+    'param-form':this
+  });
+});
+````
+
+###data-aa-result-append
+Specifies whether to remove(initialize) the data that was displayed after Ajax request.
 - Optional
 - Type: Boolean
 - Default: false
 
 #####Code example:
-The <code>originEvent()</code> function will be ignored by <code>data-aa-stoppropagation</code>
-````javascript
-function originEvent() {
-	alert("called originEvnet()");
-}
-
-$(function () {
-	$(".ajax").on("click", originEvent);
-	$(".ajax").attrAjax();
-});
-````
-````html
-<input data-aa-stoppropagation="true" data-aa-url="ajaxtest.php" 
-	class="ajax" type="button"value="test stop propagation">
-````
-
-###data-aa-onsuccess-clear-input
-Specifies whether to remove(initialize) the data that was displayed after Ajax request.
-- Optional
-- Type: Boolean
-- Default: true
-
-#####Code example:
 ````html
 <div id="setBox">This text will be replaced with response text.</div>
-<input data-aa-resulttarget="#setBox" data-aa-url="ajaxtest.php" type="button" value="Set new text!" />
+<input data-aa-result-to="#setBox" data-aa-url="ajaxtest.php" type="button" value="Set new text!" />
 
 <div id="addBox">New response text will be added under this text.</div>
-<input data-aa-onsuccess-clear-input="false" data-aa-resulttarget="#addBox" data-aa-url="ajaxtest.php" 
+<input data-aa-result-append data-aa-result-to="#addBox" data-aa-url="ajaxtest.php" 
 	type="button" value="Add new text!" />
 ````
 
@@ -235,20 +221,41 @@ Specifies data type of response data after Ajax request.
 
 ###data-aa-success-if-result-is
 The meaning of this text is the success of ajax request.
-When you set "success" text on this option, if response data is "success" text, the success message could be displayed.
+When you set "success" text on this option, if response data is "success" text, the success message could be displayed. 
+If json returned with boolean <code>success</code> attribute makes turn on.  
 This option has to be used with <code>data-aa-onsuccess-msg</code> option.
 - Optional
 - Type: String
 - Default: null
 
-#####Code example:
+#####Code example <code>html</code>:
 ````html
 //If the response data is "success" text, "you did it!!" text will be displayed.
-<input data-aa-success-if-result-is="success" data-aa-onsuccess-msg="You did it!!" data-aa-url="ajaxtest.php" 
-	type="button" value="Test success text!" />
+<input
+ 	type="button" 
+ 	value="Test success text!" 
+ 	data-aa-url="get_animal_type.php"
+ 	data-aa-datatype="text"
+	data-aa-success-if-result-is="pig" 
+	data-aa-onsuccess-msg="Test succcess!"  
+	/>
 ````
 
-###data-aa-resulttarget
+#####Code example <code>json</code>:
+````json
+{"success":true,"msg":"Test succcess!"}
+````
+````html
+//If the response data is "success" text, "you did it!!" text will be displayed.
+<input
+ 	type="button" 
+ 	value="Test success!"
+ 	data-aa-url="get_success.json"
+	data-aa-onsuccess-alert
+	/>
+````
+
+###data-aa-result-to
 Specifies the css selector of target element that the response data will be displayed in.
 - Optional
 - Type: String (css selector)
@@ -257,10 +264,10 @@ Specifies the css selector of target element that the response data will be disp
 #####Code example:
 ````html
 <div id="resultBox">This text will be replaced with response text.</div>
-<input data-aa-resulttarget="#resultBox" type="button" value="Display response data in result box!" />
+<input data-aa-result-to="#resultBox" type="button" value="Display response data in result box!" />
 ````
 
-###data-aa-tmpltarget
+###data-aa-tmpl-with
 Specifies the css selector of the script tag for jQuery Template.
 - Optional
 - Type: String (css selector)
@@ -268,8 +275,8 @@ Specifies the css selector of the script tag for jQuery Template.
 
 #####Code example:
 ````html
-<form ajax data-aa-url="ajaxtest.php" data-aa-datatype="json" data-aa-resulttarget="#result_target"
-	data-aa-tmpltarget="#script">
+<form ajax data-aa-url="ajaxtest.php" data-aa-datatype="json" data-aa-result-to="#result_target"
+	data-aa-tmpl-with="#script">
 	<input type="text" name="text1"/>
 	<input type="text" name="text2"/>
 	<input type="submit" value="test"/>
@@ -331,7 +338,7 @@ Specifies the message that will be displayed in the result target if the respons
 
 #####Code example:
 ````html
-<input data-aa-onempty-msg="data is empty!!" data-aa-resulttarget="#result_target" />
+<input data-aa-onempty-msg="data is empty!!" data-aa-result-to="#result_target" />
 <div id="result_target"></div>
 ````
 
@@ -341,13 +348,7 @@ Specifies whether to display error message when error occur.
 - Type: Boolean
 - Default: false
 
-###data-aa-onerror-focus
-Specifies whether to display the response data.
-- Optional
-- Type: Boolean
-- Default: false
-
-###data-aa-alerttype
+###data-aa-alert-type
 Specifies type of message that will be displayed.
 - Optional
 - Type: String (ex: alert, value(inline tags), text(block tags))
@@ -356,15 +357,15 @@ Specifies type of message that will be displayed.
 #####Code example:
 ````html
 //This input opens a alert dialog with the response data.
-<input data-aa-alerttype="alert" data-aa-onsuccess-alert="true" type="button" value="alert test" />
+<input data-aa-alert-type="alert" data-aa-onsuccess-alert="true" type="button" value="alert test" />
 
 //This input appends the response data to #result_target.
-<input data-aa-alerttype="text" data-aa-alerttarget="#result_target" data-aa-onsuccess-alert="true"
+<input data-aa-alert-type="text" data-aa-alert-target="#result_target" data-aa-onsuccess-alert="true"
 	type="button" value="alert test in result target"/>
 <div id="result_target"></div>
 ````
 
-###data-aa-alerttarget
+###data-aa-alert-target
 Specifies the selector that messages will be displayed on.
 - Optional
 - Type: String (css selector)
@@ -373,30 +374,59 @@ Specifies the selector that messages will be displayed on.
 #####Code example:
 ````html
 //This input appends the response data to #result_target.
-<input data-aa-alerttarget="#result_target" data-aa-alerttype="text"  data-aa-onsuccess-alert="true"
+<input data-aa-alert-target="#result_target" data-aa-alert-type="text"  data-aa-onsuccess-alert="true"
 	type="button" value="alert test in result target"/>
 <div id="result_target"></div>
 ````
 
-###data-aa-onerror-focus
-Specifies the selector that will focus when a error occur.
+###data-aa-sync
+Specifies same id on the tags that you want to bind synchronously.
+The tags have same <code>data-aa-sync</code> id could be synchronous.
 - Optional
-- Type: String (css selector)
+- Type: String
 - Default: null
 
-###data-aa-oncomplete-focus
-Specifies the selector that will focus on the complete event after Ajax Request.
+#####Code example:
+````html
+//sync group 1
+<input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group1" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+
+//sync group 2
+<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+<input data-aa-sync="sync_group2" data-aa-url="ajaxtest.php" class="ajax" type="button" value="ajax request!" />
+````
+
+###data-aa-stoppropagation
+Specifies whether to prevent further propagation of an event of the tag using attrAjax().
 - Optional
-- Type: String (css selector)
-- Default: null
+- Type: Boolean
+- Default: false
+
+#####Code example:
+The <code>originEvent()</code> function will be ignored by <code>data-aa-stoppropagation</code>
+````javascript
+function originEvent() {
+	alert("called originEvnet()");
+}
+
+$(function () {
+	$(".ajax").on("click", originEvent);
+	$(".ajax").attrAjax();
+});
+````
+````html
+<input data-aa-stoppropagation="true" data-aa-url="ajaxtest.php" 
+	class="ajax" type="button" value="test stop propagation">
+````
 
 ##Events
 
 ###Event flow
 1. data-aa-oncustomparam
-2. data-aa-onbefore
+2. data-aa-onsubmit
 3. Ajax Request
-4. data-aa-onerror, data-aa-onsuccess
+4. data-aa-onsuccess, data-aa-onerror 
 5. data-aa-oncomplete
 
 ###data-aa-oncustomparam
@@ -420,7 +450,7 @@ function onCustomParam($this) {
 <input data-aa-oncustomparam="onCustomParam" data-val="1" type="text" value="test custom param" />
 ````
 
-###data-aa-onbefore
+###data-aa-onsubmit
 Specifies the function name to call before Ajax Request.
 - Optional
 - Type: String (function name)
@@ -443,56 +473,3 @@ Specifies the function name to call when Ajax Reuqest is completed after the suc
 - Optional
 - Type: String (function name)
 - Default: null
-
-##Form validation
-This attributes are effective on input tags in Form tag or subform tag(fake form).
-
-###data-aa-msg-valid
-Specifies the message to display when the value of a input tag is invalid.
-- Optional
-- Type: String
-- Default: null
-
-###data-aa-input-name
-Specifies the input name to display with default message when the value of a input tag is invalid.
-- Optional
-- Type: String
-- Default: null
-
-###data-aa-valid-number
-The input with this option can only have numbers.
-- Optional
-
-#####Code example:
-````html
-<form>
-	// This input can only have numbers.
-	<input data-aa-valid-number type="text" />
-</form>
-````
-
-###data-aa-valid-email
-The input with this option can only email string.
-- Optional
-
-###data-aa-valid-letter
-The input with this option can only have letters.
-- Optional
-
-###data-aa-valid-notempty
-The input with this option cannot be empty.
-- Optional
-
-###data-aa-valid-regexp
-Specifies the custom regular expression to validate the value of a input.
-- Optional
-- Type: String (Regular Expression)
-- Default: null
-
-#####Code example:
-````html
-<form>
-	// This input can only have 0-9 numbers and a-z string.
-	<input data-aa-valid_regexp="^[a-z0-9]+$" type="text" />
-</form>
-````
