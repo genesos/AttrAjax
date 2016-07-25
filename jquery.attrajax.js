@@ -145,9 +145,11 @@
               }
             });
 
-            $.each(jsOptions, function (key, value) {
-              options[key] = value;
-            });
+            if (typeof jsOptions === 'object') {
+              $.each(jsOptions, function (key, value) {
+                options[key] = value;
+              });
+            }
 
             $.each($.attrAjax.CALLBACK, function (key, value) {
               if (selectedDom.attr($.attrAjax.COMMON_PREFIX + value)) {

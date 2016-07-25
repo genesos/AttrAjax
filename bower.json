@@ -4,10 +4,11 @@
   "main": "jquery.attrajax.js",
   "author": "genesos",
   "dependencies": {
-    "jquery": ">=1.5",
+    "jquery": "~1",
     "jquery-form": "~3"
   },
   "ignore": [
-    "README.md"
+    "README.md",
+    ".eslintrc.js"
   ]
 }
