@@ -4,7 +4,7 @@
   "main": "jquery.attrajax.js",
   "author": "genesos",
   "dependencies": {
-    "jquery": "~1",
+    "jquery": "~2",
     "jquery-form": "~3"
   },
   "ignore": [
