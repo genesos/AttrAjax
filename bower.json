@@ -1,6 +1,6 @@
 {
   "name": "jquery.attrajax",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "jquery.attrajax.js",
   "author": "genesos",
   "dependencies": {
