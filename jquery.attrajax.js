@@ -94,7 +94,7 @@
         var isButton = (tagName === 'BUTTON' || (tagName === 'INPUT' && selectedDom.attr('type') === 'button'));
         var isButtonWithValue = (isButton && selectedDom.attr('name') && selectedDom.attr('value'));
         var param;
-        var paramDict = {};
+        var paramDict = [];
 
         var ajaxEvent = isForm ? 'submit' : $.attrAjax.OPTION.event;
         ajaxEvent = (selectedDom.attr($.attrAjax.COMMON_PREFIX + 'event') || ajaxEvent);
@@ -262,10 +262,10 @@
                     if (typeof data !== 'undefined') {
                       data = data.toString();
                     }
-                    if (options['success-if-result-is']) {
+                    if (options['success-if-result-is'] == data) {
                       success = true;
-                      msg = data;
                     }
+                    msg = data;
                   } else if (options.datatype === 'json') {
                     success = data.success;
                     msg = data.msg;
