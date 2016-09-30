@@ -51,7 +51,7 @@
       'onsuccess-alert': false,
 
       'onfail-alert': false,
-      'onfail-msg': 'failed',
+      'onfail-msg': null,
 
       'onempty-msg': null,
 
@@ -101,7 +101,7 @@
         selectedDom.off(ajaxEvent);
         selectedDom.on(ajaxEvent,
           function (e) {
-            var options = $.attrAjax.OPTION;
+            var options = $.extend({}, $.attrAjax.OPTION);
             var inputs;
             var paramName;
             var paramValue;
@@ -128,11 +128,11 @@
             }
 
             if (isForm) {
-              if (selectedDom.attr($.attrAjax.COMMON_PREFIX + 'action') !== undefined) {
-                options.url = selectedDom.attr($.attrAjax.COMMON_PREFIX + 'action');
+              if (selectedDom.attr('action') !== undefined) {
+                options.url = selectedDom.attr('action');
               }
-              if (selectedDom.attr($.attrAjax.COMMON_PREFIX + 'method') !== undefined) {
-                options.method = selectedDom.attr($.attrAjax.COMMON_PREFIX + 'method');
+              if (selectedDom.attr('method') !== undefined) {
+                options.method = selectedDom.attr('method');
               }
             }
 
@@ -225,7 +225,7 @@
             }
 
             if (options['disable-in-working']) {
-              selectedDom.attr('in-disable', 'true');
+              selectedDom.attr($.attrAjax.COMMON_PREFIX + '-in-disable', 'true');
               if (isForm) {
                 selectedDom.find('input[type=button], input[type=submit]').attr('disabled', 'disabled').css('opacity', '0.5');
               } else {
@@ -257,6 +257,7 @@
                 var data = dataInput;
                 var success = false;
                 var msg;
+                var json;
                 if (data) {
                   if (options.datatype === 'text') {
                     if (typeof data !== 'undefined') {
@@ -291,24 +292,21 @@
                 } else {
                   if (options['onfail-alert']) {
                     $.attrAjax.printMsg(options, msg);
-                  } else if (options['onfail-msg']) {
+                  }
+                  if (options['onfail-msg']) {
                     $.attrAjax.printMsg(options, options['onfail-msg']);
                   }
                 }
 
-                if (options.oncomplete) {
-                  options.oncomplete(data);
-                }
-                if (options['oncomplete-msg']) {
-                  $.attrAjax.printMsg(options, options['oncomplete-msg']);
-                }
-                if (options['oncomplete-alert']) {
-                  $.attrAjax.printMsg(options, msg);
-                }
-
                 if (data) {
                   if (options['tmpl-with'] && $(options['tmpl-with']).length && options['result-to']) {
-                    $(options['result-to']).append($(options['tmpl-with']).tmpl($.parseJSON(data)));
+                    if (options.datatype !== 'json') {
+                      console.log(options);
+                      json = $.parseJSON(data);
+                    } else {
+                      json = data;
+                    }
+                    $(options['result-to']).append($(options['tmpl-with']).tmpl(json));
                   } else {
                     if (options['result-to']) {
                       $(options['result-to']).append(data);
@@ -316,6 +314,18 @@
                   }
                 } else if (options['onempty-msg']) {
                   $.attrAjax.printMsg(options, options['onempty-msg']);
+                }
+
+                if (options.oncomplete) {
+                  options.oncomplete(data);
+                }
+                if (options['oncomplete-alert']) {
+                  $.attrAjax.printMsg(options, msg);
+                }
+              },
+              fail: function (xhr) {
+                if (options['onfail-msg']) {
+                  $.attrAjax.printMsg(options, options['onfail-msg']);
                 }
               },
               complete: function () {
@@ -325,16 +335,16 @@
                 }
 
                 if (options['disable-in-working']) {
-                  selectedDom.removeAttr('in-disable');
+                  selectedDom.removeAttr($.attrAjax.COMMON_PREFIX + '-in-disable');
                   if (isForm) {
                     selectedDom.find('input[type=button], input[type=submit]').removeAttr('disabled').css('opacity', '1.0');
                   } else {
                     selectedDom.removeAttr('disabled').css('opacity', '1.0');
                   }
                 }
-              },
-              fail: function (xhr) {
-                alert(xhr.responseText);
+                if (options['oncomplete-msg']) {
+                  $.attrAjax.printMsg(options, options['oncomplete-msg']);
+                }
               }
             };
             if (isForm && $.ajaxSubmit) {
